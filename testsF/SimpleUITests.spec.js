@@ -12,7 +12,7 @@ test('Login web site and check that User authorised successfully', async ({ page
   const passwordField = page.locator('#password');
   const usernameField = page.locator('#username');
   const signInBtn = page.locator('#signInBtn');
-  const card = page.locator('.card-body a');
+  const card = page.locator(' .card-body a');
   
   await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
 
@@ -23,5 +23,6 @@ test('Login web site and check that User authorised successfully', async ({ page
   await passwordField.type("learning");
   await signInBtn.click();
 
-  console.log(card.nth(0).textContent);
+  console.log(card.first().textContent());
+  await expect(card.first()).toHaveText('iphone X');
 });
