@@ -26,3 +26,22 @@ test('Login web site and check that User authorised successfully', async ({ page
   console.log(card.first().textContent());
   await expect(card.first()).toHaveText('iphone X');
 });
+
+test('UI controllers', async ({ page }) => {
+  const passwordField = page.locator('#password');
+  const usernameField = page.locator('#username');
+  const userTypeDropDown = page.locator('select.form-control')
+  
+  await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
+
+  await expect(page).toHaveTitle(/LoginPage Practise | Rahul Shetty Academy/);
+  await expect(page).toHaveURL(/.*loginpagePractise/);
+
+  await usernameField.type("rahulshettyacademy");
+  await passwordField.type("learning");
+  await userTypeDropDown.selectOption("consult");
+  await page.locator('.radiotextsty').last().click();
+  await page.locator('#okayBtn').click();
+
+  await page.pause();
+});
