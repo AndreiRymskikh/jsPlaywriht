@@ -30,7 +30,8 @@ test('Login web site and check that User authorised successfully', async ({ page
 test('UI controllers', async ({ page }) => {
   const passwordField = page.locator('#password');
   const usernameField = page.locator('#username');
-  const userTypeDropDown = page.locator('select.form-control')
+  const userTypeDropDown = page.locator('select.form-control');
+  const termsCechbox = page.locator('#terms');
   
   await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
 
@@ -43,5 +44,15 @@ test('UI controllers', async ({ page }) => {
   await page.locator('.radiotextsty').last().click();
   await page.locator('#okayBtn').click();
 
-  await page.pause();
+  await expect(page.locator('.radiotextsty').last()).toBeChecked();
+
+  await termsCechbox.click();
+
+  await expect(termsCechbox.last()).toBeChecked();
+
+  await termsCechbox.uncheck();
+
+  expect(await termsCechbox.last().isChecked()).toBeFalsy();
+
+  //await page.pause();
 });
