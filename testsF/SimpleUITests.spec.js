@@ -32,6 +32,7 @@ test('UI controllers', async ({ page }) => {
   const usernameField = page.locator('#username');
   const userTypeDropDown = page.locator('select.form-control');
   const termsCechbox = page.locator('#terms');
+  const documentLink = page.locator("[href*='documents-request']");
   
   await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
 
@@ -53,6 +54,8 @@ test('UI controllers', async ({ page }) => {
   await termsCechbox.uncheck();
 
   expect(await termsCechbox.last().isChecked()).toBeFalsy();
+
+  await expect(documentLink).toHaveAttribute('class', 'blinkingText');
 
   //await page.pause();
 });
