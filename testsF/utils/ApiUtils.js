@@ -1,3 +1,5 @@
+const {expect} = require('@playwright/test');
+
 class ApiUtils 
 {
 constructor(apiContext, loginPayload) {
@@ -12,25 +14,28 @@ constructor(apiContext, loginPayload) {
           })
         expect(loginResponce.ok()).toBeTruthy();
         const loginRespoceJson = await loginResponce.json();
-        token = loginRespoceJson.token;
+        const token = loginRespoceJson.token;
         
         return token;
     }
 
     async createOrder(orderPayload) {
-        const orderResponce = await apiContext.post("https://rahulshettyacademy.com/api/ecom/order/create-order",
+        let responce = {};
+        responce.token = await this.getToken();
+        const orderResponce = await this.apiContext.post("https://rahulshettyacademy.com/api/ecom/order/create-order",
                 {
                     data: orderPayload,
                     headers: {
-                      'Authorization' : this.getToken(),
+                      'Authorization' : responce.token,
                       'Content-Type' : 'application/json'
                      }
                  });
 
         const orderResponceJson = await orderResponce.json();
-        orderId = orderResponceJson.orders[0];
+        const orderId = orderResponceJson.orders[0];
+        responce.orderId = orderId;
 
-        return orderId;
+        return responce;
     }
 }
 
