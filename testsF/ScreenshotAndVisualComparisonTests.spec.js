@@ -12,5 +12,6 @@ test('Screenshot and vision comparison', async ({ page }) => {
   await page.screenshot({path: 'screenshot.png'})
   await expect(page.locator("#displayed-text")).toBeHidden();
   
-  
+  //takes a screenshot and compare with some file
+  expect(await page.screenshot()).toMatchSnapshot('landing.png');
 });
