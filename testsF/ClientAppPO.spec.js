@@ -1,35 +1,19 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
+const {LoginPage} = require('./pages/LoginPage');
+const {DashboardPage} = require('./pages/DashboardPage');
 
 test('Check product in the cart', async ({ page }) => {
-  const userEmailField = page.locator("#userEmail");
-  const passwordField = page.locator("#userPassword");
-  const loginBtn = page.locator("#login");
   const products = page.locator(".card-body");
   const email = "anshika@gmail.com";
-
-  await page.goto('https://rahulshettyacademy.com/client/');
-
-  await userEmailField.fill(email);
-  await passwordField.type("Iamking@000");
-  await loginBtn.click();
-  await page.waitForLoadState('networkidle');
-
-  const titles = await page.locator(".card-body b").allTextContents();
-  console.log(titles);
-
   const productName = "zara coat 3";
-  const prodQty = await products.count();
-  for(let i = 0; i < prodQty; i++)
-  {
-    if( await products.nth(i).locator("b").textContent() === productName)
-    {
-      await products.nth(i).locator("text = Add To Cart").click();
-      break;
-    }
-  }
-  await page.locator("[routerlink*= 'cart']").click();
-  await page.locator("div li").first().waitFor();
+
+  const loginPage = new LoginPage(page);
+  const dashboardPage = new DashboardPage(page);
+
+  await loginPage.loginWithDefaultCreds();
+  await dashboardPage.showTitles();
+  await dashboardPage.searchProduct(productName);
 
   const isElemVisible = page.locator("h3:has-text('zara coat 3')").isVisible();
 
