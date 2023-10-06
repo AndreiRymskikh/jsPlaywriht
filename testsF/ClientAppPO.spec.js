@@ -1,15 +1,15 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
-const {LoginPage} = require('./pages/LoginPage');
-const {DashboardPage} = require('./pages/DashboardPage');
+const {POManager} = require('./pages/POManager');
 
 test('Check product in the cart', async ({ page }) => {
   const products = page.locator(".card-body");
   const email = "anshika@gmail.com";
   const productName = "zara coat 3";
 
-  const loginPage = new LoginPage(page);
-  const dashboardPage = new DashboardPage(page);
+  const getPage = new POManager(page);
+  const loginPage = getPage.getLoginPage();
+  const dashboardPage = getPage.getDashboardPage();
 
   await loginPage.loginWithDefaultCreds();
   await dashboardPage.showTitles();
