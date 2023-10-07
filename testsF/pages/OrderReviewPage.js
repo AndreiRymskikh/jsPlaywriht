@@ -21,17 +21,18 @@ class OrderReviewPage {
         const options = this.page.locator(".ta-results");
          await options.waitFor();
         const optionsCount = await options.locator("button").count();
-
+        await this.page.pause();
         for(let i = 0; i < optionsCount; ++i){
             const text = await options.locator("button").nth(1).textContent();
 
              if(text === countryName)
              {
+                await this.page.pause();
                 await options.locator("button").nth(1).click();
                  break;
              }
         }
-
+        await this.page.pause();
         await expect(this.page.locator(".user__name [type='text']").first()).toHaveText(email);
     }
 

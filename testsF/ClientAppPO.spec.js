@@ -18,7 +18,7 @@ test('Check product in the cart', async ({ page }) => {
   await cartPage.verifyProductIsDisplayed("zara coat 3");
 
   const orderReviewPage = await getPage.getOrderReviewPage();
-  await orderReviewPage.searchCountryAndSelect("ind", "India", email);
+  await orderReviewPage.searchCountryAndSelect("ind", " India", email);
   await orderReviewPage.submitFormAndCheckThankYouMessage();
    
    const orderId = await orderReviewPage.getOrderId();
