@@ -1,3 +1,5 @@
+const dataSet = JSON.parse(JSON.stringify(require('../utils/properties.json')));
+
 class LoginPage {
 
     constructor(page) 
@@ -10,10 +12,10 @@ class LoginPage {
 
     async loginWithDefaultCreds()
     {
-         await this.page.goto('https://rahulshettyacademy.com/client/');
+         await this.page.goto(dataSet.url);
 
-         await this.username.fill("anshika@gmail.com");
-         await this.password.type("Iamking@000");
+         await this.username.fill(dataSet.username);
+         await this.password.type(dataSet.password);
          await this.signInButton.click();
          await this.page.waitForLoadState('networkidle');
     }

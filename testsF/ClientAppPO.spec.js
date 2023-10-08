@@ -1,24 +1,22 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
-const {POManager} = require('./pages/POManager');
+const {POManager} = require('../pages/POManager');
+const dataSet = JSON.parse(JSON.stringify(require('../utils/properties.json')));
 
 test('Check product in the cart', async ({ page }) => {
-  const email = "anshika@gmail.com";
-  const productName = "zara coat 3";
-
   const getPage = new POManager(page);
   const loginPage = await getPage.getLoginPage();
   const dashboardPage = await getPage.getDashboardPage();
 
   await loginPage.loginWithDefaultCreds();
   await dashboardPage.showTitles();
-  await dashboardPage.searchProduct(productName);
+  await dashboardPage.searchProduct(dataSet.productName);
 
   const cartPage = await getPage.getCartPage();
-  await cartPage.verifyProductIsDisplayed("zara coat 3");
+  await cartPage.verifyProductIsDisplayed(dataSet.productName);
 
   const orderReviewPage = await getPage.getOrderReviewPage();
-  await orderReviewPage.searchCountryAndSelect("ind", " India", email);
+  await orderReviewPage.searchCountryAndSelect("ind", " India", dataSet.username);
   await orderReviewPage.submitFormAndCheckThankYouMessage();
    
    const orderId = await orderReviewPage.getOrderId();
