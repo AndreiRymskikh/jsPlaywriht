@@ -24,7 +24,7 @@ test.beforeAll( async ({browser}) =>
 
 })
 
-test('Check product in the cart using local storage', async () => {
+test('@API Check product in the cart using local storage', async () => {
  const page =  await webContext.newPage();
  await page.goto('https://rahulshettyacademy.com/client/');
   

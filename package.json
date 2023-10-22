@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "ATF for learning JS + Playwright",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "regression" : "npx playwright test",
+    "webTests" : "npx playwright test --grep @Web",
+    "APITests" : "npx playwright test --grep @API"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://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@github.com/AndreiRymskikh/jsPlaywriht.git"
@@ -16,6 +20,7 @@
   },
   "homepage": "https://github.com/AndreiRymskikh/jsPlaywriht#readme",
   "devDependencies": {
-    "@playwright/test": "^1.36.2"
+    "@playwright/test": "^1.39.0",
+    "allure-playwright": "^2.9.2"
   }
 }
