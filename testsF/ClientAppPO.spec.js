@@ -12,7 +12,7 @@ test('Check product in the cart', async ({ page }) => {
 
   await loginPage.loginWithDefaultCreds();
   await dashboardPage.showTitles();
-  await dashboardPage.searchProduct(dataSet.productName);
+  await dashboardPage.searchProductAndAddToCart(dataSet.productName);
 
   const cartPage = await getPage.getCartPage();
   await cartPage.verifyProductIsDisplayed(dataSet.productName);
@@ -35,7 +35,7 @@ customtest.only('Check product in the cart - custom test', async ({ page, testDa
 
   await loginPage.loginWithDefaultCreds();
   await dashboardPage.showTitles();
-  await dashboardPage.searchProduct(testDataForOrder.productName);
+  await dashboardPage.searchProductAndAddToCart(testDataForOrder.productName);
 
   const cartPage = await getPage.getCartPage();
   await cartPage.verifyProductIsDisplayed(testDataForOrder.productName);

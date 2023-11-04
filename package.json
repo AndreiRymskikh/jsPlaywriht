@@ -4,9 +4,9 @@
   "description": "ATF for learning JS + Playwright",
   "main": "index.js",
   "scripts": {
-    "regression" : "npx playwright test",
-    "webTests" : "npx playwright test --grep @Web",
-    "APITests" : "npx playwright test --grep @API"
+    "regression": "npx playwright test",
+    "webTests": "npx playwright test --grep @Web",
+    "APITests": "npx playwright test --grep @API"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,8 @@
   "devDependencies": {
     "@playwright/test": "^1.39.0",
     "allure-playwright": "^2.9.2"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^10.0.1"
   }
 }

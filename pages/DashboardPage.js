@@ -18,7 +18,7 @@ class DashboardPage
       
     }
 
-    async searchProduct(productName)
+    async searchProductAndAddToCart(productName)
     {
         const prodQty = await this.products.count();
         for(let i = 0; i < prodQty; i++)
