@@ -3,38 +3,38 @@ import { environment } from '../../utils/environment';
 import { orderTestData } from '../../utils/test-data';
 import { CustomWorld } from '../support/world';
 
-function getApp(world: CustomWorld) {
-  if (!world.app) {
-    throw new Error('The test application was not initialized');
+function getPages(world: CustomWorld) {
+  if (!world.pages) {
+    throw new Error('The page fixture was not initialized');
   }
 
-  return world.app;
+  return world.pages;
 }
 
 Given('the user is logged in', async function (this: CustomWorld) {
-  await getApp(this).login.loginWithDefaultCredentials();
+  await getPages(this).login.loginWithDefaultCredentials();
 });
 
 When(
   'the user adds the configured product to the cart',
   async function (this: CustomWorld) {
-    const app = getApp(this);
-    await app.dashboard.addProductToCart(orderTestData.productName);
-    await app.dashboard.openCart();
+    const pages = getPages(this);
+    await pages.dashboard.addProductToCart(orderTestData.productName);
+    await pages.dashboard.openCart();
   }
 );
 
 Then(
   'the configured product should be displayed in the cart',
   async function (this: CustomWorld) {
-    await getApp(this).cart.expectProductVisible(orderTestData.productName);
+    await getPages(this).cart.expectProductVisible(orderTestData.productName);
   }
 );
 
 When(
   'the user completes checkout with the configured country',
   async function (this: CustomWorld) {
-    await getApp(this).orderReview.checkoutAndSelectCountry(
+    await getPages(this).orderReview.checkoutAndSelectCountry(
       orderTestData.countryCode,
       orderTestData.countryName,
       environment.email
@@ -45,7 +45,7 @@ When(
 Then(
   'the order should be placed successfully',
   async function (this: CustomWorld) {
-    this.orderId = await getApp(this).orderReview.placeOrder();
+    this.orderId = await getPages(this).orderReview.placeOrder();
   }
 );
 
@@ -56,6 +56,6 @@ Then(
       throw new Error('No order ID was saved by the order-placement step');
     }
 
-    await getApp(this).orderHistory.openOrder(this.orderId);
+    await getPages(this).orderHistory.openOrder(this.orderId);
   }
 );

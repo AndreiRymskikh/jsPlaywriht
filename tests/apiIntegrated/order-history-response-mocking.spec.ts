@@ -1,7 +1,7 @@
-import { test } from './fixtures/api.fixture';
+import { test } from '../../fixtures/api.fixture';
 
 test('@API replaces the order-history response', async ({
-  app,
+  pages,
   authToken,
   page
 }) => {
@@ -13,7 +13,7 @@ test('@API replaces the order-history response', async ({
     });
   });
 
-  await app.login.openAuthenticatedSession(authToken);
-  await app.orderHistory.open();
-  await app.orderHistory.expectNoOrders();
+  await pages.login.openAuthenticatedSession(authToken);
+  await pages.orderHistory.open();
+  await pages.orderHistory.expectNoOrders();
 });

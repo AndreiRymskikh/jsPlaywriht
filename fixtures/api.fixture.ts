@@ -1,15 +1,13 @@
-import { test as base } from '@playwright/test';
-import { POManager } from '../../../pages/POManager';
-import { ApiUtils } from '../../../utils/ApiUtils';
-import { environment } from '../../../utils/environment';
+import { test as base } from './page.fixture';
+import { ApiUtils } from '../utils/ApiUtils';
+import { environment } from '../utils/environment';
 
-interface ApiIntegratedFixtures {
+interface ApiFixtures {
   api: ApiUtils;
-  app: POManager;
   authToken: string;
 }
 
-export const test = base.extend<ApiIntegratedFixtures>({
+export const test = base.extend<ApiFixtures>({
   api: async ({ playwright }, use) => {
     const apiContext = await playwright.request.newContext({
       baseURL: environment.apiBaseUrl
@@ -26,11 +24,9 @@ export const test = base.extend<ApiIntegratedFixtures>({
     }
   },
 
-  app: async ({ page }, use) => {
-    await use(new POManager(page));
-  },
-
   authToken: async ({ api }, use) => {
     await use(await api.getToken());
   }
 });
+
+export { expect } from '@playwright/test';

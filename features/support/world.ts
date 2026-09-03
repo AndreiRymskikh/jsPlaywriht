@@ -9,13 +9,13 @@ import {
   type BrowserContext,
   type Page
 } from '@playwright/test';
-import { POManager } from '../../pages/POManager';
+import { PageFixture } from '../../fixtures/page.fixture';
 
 export class CustomWorld extends World {
   browser?: Browser;
   context?: BrowserContext;
   page?: Page;
-  app?: POManager;
+  pages?: PageFixture;
   orderId?: string;
 
   constructor(options: IWorldOptions) {
@@ -28,7 +28,7 @@ export class CustomWorld extends World {
     });
     this.context = await this.browser.newContext();
     this.page = await this.context.newPage();
-    this.app = new POManager(this.page);
+    this.pages = new PageFixture(this.page);
   }
 
   async stop(): Promise<void> {

@@ -1,15 +1,15 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { Given, Then, When } from '@cucumber/cucumber';
-import { POManager } from '../../pages/POManager';
+import { PageFixture } from '../../fixtures/page.fixture';
 import { CustomWorld } from '../support/world';
 
-function getApp(world: CustomWorld): POManager {
-  if (!world.app) {
-    throw new Error('The test application was not initialized');
+function getPages(world: CustomWorld): PageFixture {
+  if (!world.pages) {
+    throw new Error('The page fixture was not initialized');
   }
 
-  return world.app;
+  return world.pages;
 }
 
 function visualBaselinePath(): string {
@@ -24,21 +24,21 @@ function visualBaselinePath(): string {
 Given(
   'the user opens the Automation Practice page',
   async function (this: CustomWorld) {
-    await getApp(this).automationPractice.open();
+    await getPages(this).automationPractice.open();
   }
 );
 
 Then(
   'the displayed text should be visible',
   async function (this: CustomWorld) {
-    await getApp(this).automationPractice.expectDisplayedTextVisible();
+    await getPages(this).automationPractice.expectDisplayedTextVisible();
   }
 );
 
 Then(
   'the hide button should match its approved visual snapshot',
   async function (this: CustomWorld) {
-    const actual = await getApp(this).automationPractice.captureHideButton();
+    const actual = await getPages(this).automationPractice.captureHideButton();
 
     let expected: Buffer;
     try {
@@ -62,13 +62,13 @@ Then(
 When(
   'the user clicks the hide button',
   async function (this: CustomWorld) {
-    await getApp(this).automationPractice.hideDisplayedText();
+    await getPages(this).automationPractice.hideDisplayedText();
   }
 );
 
 Then(
   'the displayed text should be hidden',
   async function (this: CustomWorld) {
-    await getApp(this).automationPractice.expectDisplayedTextHidden();
+    await getPages(this).automationPractice.expectDisplayedTextHidden();
   }
 );

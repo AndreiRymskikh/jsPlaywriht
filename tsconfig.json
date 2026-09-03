@@ -13,6 +13,7 @@
     "outDir": "dist"
   },
   "include": [
+    "fixtures/**/*.ts",
     "features/**/*.ts",
     "pages/**/*.ts",
     "tests/**/*.ts",
