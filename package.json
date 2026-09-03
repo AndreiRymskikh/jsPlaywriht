@@ -1,16 +1,19 @@
 {
   "name": "jsplaywriht",
   "version": "1.0.0",
-  "description": "ATF for learning JS + Playwright",
-  "main": "index.js",
+  "description": "TypeScript end-to-end test framework using Playwright and Cucumber",
+  "private": true,
   "scripts": {
-    "regression": "npx playwright test",
-    "webTests": "npx playwright test --grep @Web",
-    "APITests": "npx playwright test --grep @API"
+    "typecheck": "tsc --noEmit",
+    "test": "playwright test",
+    "test:web": "playwright test --grep @Web",
+    "test:api": "playwright test --grep @API",
+    "test:cucumber": "cucumber-js",
+    "test:all": "npm run typecheck && npm test && npm run test:cucumber"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://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@github.com/AndreiRymskikh/jsPlaywriht.git"
+    "url": "git+https://github.com/AndreiRymskikh/jsPlaywriht.git"
   },
   "keywords": [],
   "author": "",
@@ -20,10 +23,12 @@
   },
   "homepage": "https://github.com/AndreiRymskikh/jsPlaywriht#readme",
   "devDependencies": {
+    "@cucumber/cucumber": "^10.0.1",
     "@playwright/test": "^1.39.0",
-    "allure-playwright": "^2.9.2"
-  },
-  "dependencies": {
-    "@cucumber/cucumber": "^10.0.1"
+    "@types/node": "^20.10.0",
+    "allure-playwright": "^2.9.2",
+    "dotenv": "^16.3.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2"
   }
 }
