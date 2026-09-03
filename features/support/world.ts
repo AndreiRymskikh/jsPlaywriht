@@ -16,6 +16,7 @@ export class CustomWorld extends World {
   context?: BrowserContext;
   page?: Page;
   app?: POManager;
+  orderId?: string;
 
   constructor(options: IWorldOptions) {
     super(options);
