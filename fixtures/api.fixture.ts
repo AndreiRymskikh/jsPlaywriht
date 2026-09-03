@@ -1,6 +1,6 @@
 import { test as base } from './page.fixture';
 import { ApiUtils } from '../utils/ApiUtils';
-import { environment } from '../utils/environment';
+import { environment } from '../config/environment';
 
 interface ApiFixtures {
   api: ApiUtils;

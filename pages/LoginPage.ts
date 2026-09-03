@@ -1,5 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test';
-import { environment } from '../utils/environment';
+import { environment } from '../config/environment';
 
 export class LoginPage {
   private readonly signInButton: Locator;

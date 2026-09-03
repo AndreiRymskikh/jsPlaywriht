@@ -1,5 +1,5 @@
 import { Given, Then, When } from '@cucumber/cucumber';
-import { environment } from '../utils/environment';
+import { environment } from '../config/environment';
 import { orderTestData } from '../utils/test-data';
 import {
   CustomWorld,
