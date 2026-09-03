@@ -1,22 +1,16 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { Given, Then, When } from '@cucumber/cucumber';
-import { PageFixture } from '../../fixtures/page.fixture';
-import { CustomWorld } from '../support/world';
-
-function getPages(world: CustomWorld): PageFixture {
-  if (!world.pages) {
-    throw new Error('The page fixture was not initialized');
-  }
-
-  return world.pages;
-}
+import {
+  CustomWorld,
+  requirePages
+} from '../cucumberTests/support/world';
 
 function visualBaselinePath(): string {
   const platform = process.platform === 'darwin' ? 'darwin' : 'linux';
 
   return path.resolve(
-    'tests/visual/visual.spec.ts-snapshots',
+    'cucumberTests/visual/snapshots',
     `hide-button-chromium-${platform}.png`
   );
 }
@@ -24,21 +18,22 @@ function visualBaselinePath(): string {
 Given(
   'the user opens the Automation Practice page',
   async function (this: CustomWorld) {
-    await getPages(this).automationPractice.open();
+    await requirePages(this).automationPractice.open();
   }
 );
 
 Then(
   'the displayed text should be visible',
   async function (this: CustomWorld) {
-    await getPages(this).automationPractice.expectDisplayedTextVisible();
+    await requirePages(this).automationPractice.expectDisplayedTextVisible();
   }
 );
 
 Then(
   'the hide button should match its approved visual snapshot',
   async function (this: CustomWorld) {
-    const actual = await getPages(this).automationPractice.captureHideButton();
+    const actual =
+      await requirePages(this).automationPractice.captureHideButton();
 
     let expected: Buffer;
     try {
@@ -46,7 +41,7 @@ Then(
     } catch {
       await this.attach(actual, 'image/png');
       throw new Error(
-        `Visual baseline is missing: ${visualBaselinePath()}. Generate it with "npm test -- tests/visual/visual.spec.ts --update-snapshots".`
+        `Visual baseline is missing: ${visualBaselinePath()}`
       );
     }
 
@@ -62,13 +57,13 @@ Then(
 When(
   'the user clicks the hide button',
   async function (this: CustomWorld) {
-    await getPages(this).automationPractice.hideDisplayedText();
+    await requirePages(this).automationPractice.hideDisplayedText();
   }
 );
 
 Then(
   'the displayed text should be hidden',
   async function (this: CustomWorld) {
-    await getPages(this).automationPractice.expectDisplayedTextHidden();
+    await requirePages(this).automationPractice.expectDisplayedTextHidden();
   }
 );

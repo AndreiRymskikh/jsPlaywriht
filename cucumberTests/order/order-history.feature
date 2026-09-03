@@ -1,4 +1,4 @@
-@Web
+@Web @Order
 Feature: Product order history
 
   Scenario: Place an order and find it in order history

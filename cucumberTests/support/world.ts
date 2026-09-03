@@ -37,4 +37,12 @@ export class CustomWorld extends World {
   }
 }
 
+export function requirePages(world: CustomWorld): PageFixture {
+  if (!world.pages) {
+    throw new Error('The page fixture was not initialized');
+  }
+
+  return world.pages;
+}
+
 setWorldConstructor(CustomWorld);

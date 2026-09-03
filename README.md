@@ -35,7 +35,9 @@ A TypeScript end-to-end test project using Playwright and Cucumber.
 - `pages/`: typed Page Objects.
 - `fixtures/`: shared page, API, and test-data fixtures.
 - `tests/`: Playwright UI, API, network, and visual tests.
-- `features/`: Cucumber features, typed steps, hooks, and World.
+- `cucumberTests/order/` and `cucumberTests/visual/`: domain-organized BDD feature files.
+- `cucumberTests/support/`: shared Cucumber hooks and World.
+- `stepDefinitions/`: executable Cucumber step definitions.
 - `utils/`: environment configuration, API helpers, and test data.
 
 The tests target the Rahul Shetty Academy demonstration applications and
