@@ -1,15 +1,15 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { Given, Then, When } from '@cucumber/cucumber';
-import { expect, type Page } from '@playwright/test';
+import { POManager } from '../../pages/POManager';
 import { CustomWorld } from '../support/world';
 
-function getPage(world: CustomWorld): Page {
-  if (!world.page) {
-    throw new Error('The browser page was not initialized');
+function getApp(world: CustomWorld): POManager {
+  if (!world.app) {
+    throw new Error('The test application was not initialized');
   }
 
-  return world.page;
+  return world.app;
 }
 
 function visualBaselinePath(): string {
@@ -24,25 +24,21 @@ function visualBaselinePath(): string {
 Given(
   'the user opens the Automation Practice page',
   async function (this: CustomWorld) {
-    await getPage(this).goto(
-      'https://rahulshettyacademy.com/AutomationPractice/'
-    );
+    await getApp(this).automationPractice.open();
   }
 );
 
 Then(
   'the displayed text should be visible',
   async function (this: CustomWorld) {
-    await expect(getPage(this).locator('#displayed-text')).toBeVisible();
+    await getApp(this).automationPractice.expectDisplayedTextVisible();
   }
 );
 
 Then(
   'the hide button should match its approved visual snapshot',
   async function (this: CustomWorld) {
-    const actual = await getPage(this).locator('#hide-textbox').screenshot({
-      animations: 'disabled'
-    });
+    const actual = await getApp(this).automationPractice.captureHideButton();
 
     let expected: Buffer;
     try {
@@ -66,13 +62,13 @@ Then(
 When(
   'the user clicks the hide button',
   async function (this: CustomWorld) {
-    await getPage(this).locator('#hide-textbox').click();
+    await getApp(this).automationPractice.hideDisplayedText();
   }
 );
 
 Then(
   'the displayed text should be hidden',
   async function (this: CustomWorld) {
-    await expect(getPage(this).locator('#displayed-text')).toBeHidden();
+    await getApp(this).automationPractice.expectDisplayedTextHidden();
   }
 );
