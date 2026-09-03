@@ -1,10 +1,10 @@
 import { Given, Then, When } from '@cucumber/cucumber';
 import { environment } from '../config/environment';
-import { orderTestData } from '../utils/test-data';
+import { orderTestData } from '../testData/order.data';
 import {
   CustomWorld,
   requirePages
-} from '../cucumberTests/support/world';
+} from '../tests/cucumberTests/testSetup/world';
 
 Given('the user is logged in', async function (this: CustomWorld) {
   await requirePages(this).login.loginWithDefaultCredentials();

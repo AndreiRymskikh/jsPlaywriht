@@ -1,5 +1,5 @@
 import { test as base } from './page.fixture';
-import { orderTestData, type OrderTestData } from '../utils/test-data';
+import { orderTestData, type OrderTestData } from '../testData/order.data';
 
 interface OrderFixtures {
   orderData: OrderTestData;

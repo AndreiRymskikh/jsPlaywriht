@@ -1,5 +1,5 @@
 import { test } from '../../fixtures/api.fixture';
-import { orderTestData } from '../../utils/test-data';
+import { orderTestData } from '../../testData/order.data';
 
 test('@API creates an order through the API and verifies it in the UI', async ({
   api,

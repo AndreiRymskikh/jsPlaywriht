@@ -9,7 +9,7 @@ import {
   type BrowserContext,
   type Page
 } from '@playwright/test';
-import { PageFixture } from '../../fixtures/page.fixture';
+import { PageFixture } from '../../../fixtures/page.fixture';
 
 export class CustomWorld extends World {
   browser?: Browser;

@@ -4,13 +4,13 @@ import { Given, Then, When } from '@cucumber/cucumber';
 import {
   CustomWorld,
   requirePages
-} from '../cucumberTests/support/world';
+} from '../tests/cucumberTests/testSetup/world';
 
 function visualBaselinePath(): string {
   const platform = process.platform === 'darwin' ? 'darwin' : 'linux';
 
   return path.resolve(
-    'cucumberTests/visual/snapshots',
+    'tests/cucumberTests/visual/snapshots',
     `hide-button-chromium-${platform}.png`
   );
 }

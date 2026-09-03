@@ -15,8 +15,8 @@
   "include": [
     "config/**/*.ts",
     "fixtures/**/*.ts",
-    "cucumberTests/**/*.ts",
     "stepDefinitions/**/*.ts",
+    "testData/**/*.ts",
     "pages/**/*.ts",
     "tests/**/*.ts",
     "utils/**/*.ts",

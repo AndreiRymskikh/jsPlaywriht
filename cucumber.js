@@ -1,9 +1,9 @@
 module.exports = {
   default: {
-    paths: ['cucumberTests/**/*.feature'],
+    paths: ['tests/cucumberTests/**/*.feature'],
     requireModule: ['ts-node/register'],
     require: [
-      'cucumberTests/support/**/*.ts',
+      'tests/cucumberTests/testSetup/**/*.ts',
       'stepDefinitions/**/*.ts'
     ],
     format: ['progress']
