@@ -41,6 +41,33 @@ export class OrderReviewPage {
     ).toHaveValue(email);
   }
 
+  async beginCheckout(): Promise<void> {
+    await this.checkout.click();
+    await expect(this.countryField).toBeVisible();
+  }
+
+  async searchCountry(searchText: string): Promise<void> {
+    await this.countryField.fill('');
+    await this.countryField.pressSequentially(searchText, { delay: 100 });
+  }
+
+  async expectMultipleCountrySuggestions(): Promise<void> {
+    await expect(this.countryOptions.first()).toBeVisible();
+    expect(await this.countryOptions.count()).toBeGreaterThan(1);
+  }
+
+  async selectExactCountry(countryName: string): Promise<void> {
+    const matchingCountry = this.countryOptions.filter({
+      hasText: new RegExp(`^\\s*${countryName.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&')}\\s*$`, 'i')
+    });
+    await expect(matchingCountry).toHaveCount(1);
+    await matchingCountry.click();
+  }
+
+  async expectNoCountrySuggestions(): Promise<void> {
+    await expect(this.countryOptions).toHaveCount(0);
+  }
+
   async placeOrder(): Promise<string> {
     await this.submitButton.click();
     await expect(this.confirmationHeading).toContainText(

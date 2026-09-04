@@ -8,4 +8,11 @@ export class CartPage {
       this.page.locator('h3').filter({ hasText: productName })
     ).toBeVisible();
   }
+
+  async expectEmpty(): Promise<void> {
+    await expect(
+      this.page.getByText('No Products in Your Cart !', { exact: true })
+    ).toBeVisible();
+    await expect(this.page.getByText('Checkout', { exact: true })).toHaveCount(0);
+  }
 }

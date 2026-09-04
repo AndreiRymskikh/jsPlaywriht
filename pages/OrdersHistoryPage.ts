@@ -32,4 +32,11 @@ export class OrdersHistoryPage {
   async expectNoOrders(): Promise<void> {
     await expect(this.noOrdersMessage).toBeVisible();
   }
+
+  async expectOrderAbsent(orderId: string): Promise<void> {
+    await this.open();
+    await expect(
+      this.rows.filter({ has: this.page.locator('th', { hasText: orderId }) })
+    ).toHaveCount(0);
+  }
 }
