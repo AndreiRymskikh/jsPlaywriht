@@ -42,6 +42,56 @@ Install the Chromium browser used by Playwright:
 npx playwright install chromium
 ```
 
+## Playwright agents
+
+This project uses the Playwright Test agents for agent-assisted test planning,
+generation, and repair:
+
+- **Planner** explores a workflow and writes a human-readable test plan under
+  `specs/`.
+- **Generator** turns a plan into Playwright tests while following the existing
+  fixtures and Page Object architecture.
+- **Healer** runs failing tests, diagnoses failures, and repairs selectors or
+  assertions in the appropriate Page Objects.
+
+The Codex agent definitions are stored under `.codex/agents/`. Generate or
+refresh them after installing or upgrading Playwright:
+
+```bash
+npx playwright init-agents --loop=codex
+```
+
+The agents use `tests/seed.spec.ts` as the starting example for this project's
+fixtures and conventions. The current authenticated order plan is stored in
+`specs/authenticated-order-workflow.md`, with its generated tests under
+`tests/orderWorkflow/`.
+
+Example prompts:
+
+```text
+Use the Playwright planner to explore the authenticated order workflow.
+Use tests/cucumberTests/order/order-history.feature as the pattern and save
+the plan under specs/.
+```
+
+```text
+Use the Playwright generator to implement the plan in
+specs/authenticated-order-workflow.md. Follow the existing fixtures and Page
+Object pattern.
+```
+
+```text
+Use the Playwright healer on the failing order workflow test. Preserve the
+existing Page Object architecture.
+```
+
+Tests tagged `@OrderMutation` create persistent orders in the configured
+external test account. Exclude them when order creation is not intended:
+
+```bash
+npm test -- --grep-invert @OrderMutation
+```
+
 ## Environment configuration
 
 Create a local environment file from the supplied template:
